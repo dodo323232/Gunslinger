@@ -1,0 +1,71 @@
+using UnityEngine;
+using System.Diagnostics;
+using Unity.Mathematics;
+public class TimeManager : MonoBehaviour
+{
+    Stopwatch stopwatch = new Stopwatch();
+    [SerializeField]
+    private Player player;
+    public static TimeManager instance;
+    
+    public float recordTime;
+    public float reaction;
+    public float randomReaction;
+    void Awake()
+    {
+        if( instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    public void TimeStart()
+    {
+        stopwatch.Start();
+    }
+
+    public void TimeStop()
+    {
+        stopwatch.Stop();
+        double rawMs = stopwatch.Elapsed.TotalMilliseconds; 
+        reaction = (float)(System.Math.Round(rawMs,1)); // 더블을 소수 한자리
+    }
+
+    public void TimeRecord()
+    {
+        double rawMs = stopwatch.Elapsed.TotalMilliseconds;
+        recordTime = (float)(System.Math.Round(rawMs,1));
+    }
+    public void WinLoss()
+    {
+        if (reaction < randomReaction)
+        {
+            UnityEngine.Debug.Log("Player 승");
+            ScoreUi.instance.PlayerScoreUp();
+            GameManager.instance.readyStart = false;
+        }
+        else if (reaction > randomReaction)
+        {
+            UnityEngine.Debug.Log("Ai 승");
+            GameManager.instance.Shoot();
+            ScoreUi.instance.AiScoreUp();
+            GameManager.instance.readyStart = false;
+        }
+
+        else if(randomReaction == reaction)
+        {
+            UnityEngine.Debug.Log("무승부");
+            player.Stop();
+            GameManager.instance.TimeRestart();
+            player.ReStart();
+            GameManager.instance.readyStart = false;
+        }
+        
+    }
+    
+    public void TimeReset()
+    {
+        stopwatch.Reset();
+        recordTime = 0;
+    }
+}
