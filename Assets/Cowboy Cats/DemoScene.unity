@@ -257,6 +257,7 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   selectedColor: {r: 1, g: 0.64705884, b: 0.64705884, a: 1}
+  difficulty: 0
 --- !u!1 &233406161
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +589,7 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   selectedColor: {r: 1, g: 0.6462264, b: 0.6462264, a: 1}
+  difficulty: 2
 --- !u!1 &476785571
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +701,7 @@ MonoBehaviour:
   DifPanel: {fileID: 1914783390}
   gameStart: 0
   readyStart: 0
+  d: 0
   randomTime: 0
   text: {fileID: 1614581706}
   shoot: {fileID: 8300000, guid: 6135a6f5133d623488232968b7abc8ce, type: 3}
@@ -971,6 +974,7 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   selectedColor: {r: 1, g: 0.64705884, b: 0.64705884, a: 1}
+  difficulty: 1
 --- !u!1 &542277953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2633,8 +2637,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e7ac3ddb179eb4887ce6e3d56db8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AiPlayer
-  minReaction: 230
-  maxReaction: 300
 --- !u!1 &1594047615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,7 +3153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1914783391
 RectTransform:
   m_ObjectHideFlags: 0

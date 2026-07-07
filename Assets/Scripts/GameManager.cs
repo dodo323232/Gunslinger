@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public bool gameStart = false;
     public bool readyStart = false;
     public float randomTime;
+    public enum Difficulty {Hard, Normal, Easy}; // 오늘 배운 enum, Hard는 0 Normal은 1 Easy는 2
+    // 여기서 Difficulty는 타입을 뜻한다
+    public Difficulty d = Difficulty.Easy;
+    public float[] minReaction = {150f,200f,240f}; // ai 최소 반응속도
+    public float[] maxReaction = {200f,240f,300f}; // ai 최대 반응속도
     
     [SerializeField]
     private TextMeshProUGUI text;

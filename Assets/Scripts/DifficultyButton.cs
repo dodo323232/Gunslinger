@@ -14,6 +14,10 @@ public class DifficultyButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     Image[] images;
     private bool isHovered = false;
     private bool isSelected = false;
+    
+    [SerializeField]
+    public GameManager.Difficulty difficulty; // 변수
+
 
     void Awake()
     {
@@ -36,6 +40,7 @@ public class DifficultyButton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerClick(PointerEventData eventData) // 버튼을 클릭했을 때 자동 실행
     {
         group.SelectedButton(this);
+        GameManager.instance.d = difficulty;
     }
     private void ApplyColor()
     {
