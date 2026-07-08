@@ -10,6 +10,10 @@ public class ScoreUi : MonoBehaviour
     [SerializeField]
     private GameObject aiWinPanel;
 
+    private const int WinsNeeded = 3; // 5판 3선승제
+    public int playerScore = 0;
+    public int aiScore = 0;
+
     void Awake()
     {
         if (instance == null)
@@ -20,12 +24,28 @@ public class ScoreUi : MonoBehaviour
 
     public void PlayerScoreUp()
     {
-        Invoke("PlayerWin", 2.5f);
+        playerScore++;
+        if (playerScore >= WinsNeeded)
+        {
+            Invoke("PlayerWin", 2.5f);
+        }
+        else
+        {
+            Invoke("NextRound", 2.5f);
+        }
     }
 
     public void AiScoreUp()
     {
-        Invoke("AiWin", 2.5f);
+        aiScore++;
+        if (aiScore >= WinsNeeded)
+        {
+            Invoke("AiWin", 2.5f);
+        }
+        else
+        {
+            Invoke("NextRound", 2.5f);
+        }
     }
 
     private void PlayerWin()
@@ -40,11 +60,22 @@ public class ScoreUi : MonoBehaviour
         GameManager.instance.GameOverSound();
     }
 
+    private void NextRound() // 아직 3승을 못했으면 다음 라운드로 진행
+    {
+        GameManager.instance.TrackSound();
+        player.Stop();
+        TimeManager.instance.TimeReset();
+        GameManager.instance.TimeRestart();
+        player.ReStart();
+    }
+
     public void PlayAgain()
     {
         GameManager.instance.TrackSound();
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
+        playerScore = 0;
+        aiScore = 0;
         player.Stop();
         TimeManager.instance.TimeReset();
         GameManager.instance.TimeRestart();
