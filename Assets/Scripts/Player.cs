@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     private Animator animator;
     private Coroutine reactionCoroutine;
+    private bool aiWin = false;
 
     void Start()
     {
@@ -17,18 +18,17 @@ public class Player : MonoBehaviour
     IEnumerator PlayerReaction()
     {
         yield return new WaitUntil(() => GameManager.instance.readyStart);
-        
+        aiWin = false;
+
         while (true)
         {
             TimeManager.instance.TimeRecord();
-            if(TimeManager.instance.recordTime > TimeManager.instance.randomReaction)
+            if(!aiWin && TimeManager.instance.recordTime > TimeManager.instance.randomReaction)
             {
+                aiWin = true;
                 GameManager.instance.ShootSound();
                 GameManager.instance.Shoot();
                 Debug.Log("너무 오소이~ ai 승 : "+TimeManager.instance.randomReaction);
-                TimeManager.instance.TimeStop();
-                ScoreUi.instance.AiScoreUp();
-                break;
             }
 
             if (GameManager.instance.readyStart && Input.GetMouseButtonDown(0))
@@ -37,7 +37,17 @@ public class Player : MonoBehaviour
                 {
                     Mistake();
                     GameManager.instance.ShootSound();
-                    yield return new WaitForSeconds(2f);
+                    GameManager.instance.Shoot();
+                    ScoreUi.instance.AiScoreUp();
+                    break;
+                }
+                else if (aiWin)
+                {
+                    TimeManager.instance.TimeStop();
+                    Debug.Log("이미 패배, 반응속도만 기록 : "+TimeManager.instance.reaction);
+                    ScoreUi.instance.AiScoreUp();
+                    GameManager.instance.readyStart = false;
+                    break;
                 }
                 else
                 {
@@ -48,7 +58,7 @@ public class Player : MonoBehaviour
                     break;
                 }
             }
-            
+
             yield return null;
         }
     }

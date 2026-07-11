@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         readyStart = false;
         text.SetText("READY");
         readyStart = true;
-        randomTime = Random.Range(2f,5f);
+        randomTime = Random.Range(2.5f,5f);
         Instantiate(ballPrefab,ballLocate,Quaternion.identity);
         yield return new WaitForSeconds(randomTime);
         text.SetText("shoot!");

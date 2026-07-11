@@ -10,7 +10,7 @@ public class ScoreUi : MonoBehaviour
     [SerializeField]
     private GameObject aiWinPanel;
 
-    private const int WinsNeeded = 3; // 5판 3선승제
+    private const int WinsNeeded = 5;
     public int playerScore = 0;
     public int aiScore = 0;
 
