@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private GameObject menuPanel;
-
+    private Coroutine startTimerCoroutine;
     Vector3 ballLocate = new Vector3(10.62f,-3.29f,0f);
     public void Awake()
     {
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator StartTimer()    // 게임 시작시 타이머 랜덤
+    public IEnumerator StartTimer()    // 게임 시작시 타이머 랜덤
     {
         yield return new WaitForSeconds(1.5f);
         gameStart = false;
@@ -75,10 +75,14 @@ public class GameManager : MonoBehaviour
 
     public void TimeRestart()
     {
+        if (startTimerCoroutine != null)
+        {
+            StopCoroutine(startTimerCoroutine);
+        }
         gameStart = false; 
         readyStart = false;
         text.SetText("");
-        StartCoroutine(StartTimer());
+        startTimerCoroutine = StartCoroutine(StartTimer());
     }
 
     public void ShootSound()
@@ -96,7 +100,7 @@ public class GameManager : MonoBehaviour
     public void PlayStart()
     {
         menuPanel.SetActive(false);
-        StartCoroutine(StartTimer());
+        startTimerCoroutine = StartCoroutine(StartTimer());
     }
     public void DifButton()
     {

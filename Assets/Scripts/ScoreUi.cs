@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.Collections;
 using UnityEngine;
 public class ScoreUi : MonoBehaviour
 {
@@ -10,7 +12,11 @@ public class ScoreUi : MonoBehaviour
     [SerializeField]
     private GameObject aiWinPanel;
 
-    private const int WinsNeeded = 5;
+    [SerializeField]
+    private TextMeshProUGUI aiAverage;
+    [SerializeField]
+    private TextMeshProUGUI playerAverage;
+    private const int WinsNeeded = 3;
     public int playerScore = 0;
     public int aiScore = 0;
 
@@ -52,12 +58,14 @@ public class ScoreUi : MonoBehaviour
     {
         playerWinPanel.SetActive(true);
         GameManager.instance.GameOverSound();
+        ScoreUi.instance.AverageText();
     }
 
     private void AiWin()
     {
         aiWinPanel.SetActive(true);
         GameManager.instance.GameOverSound();
+        ScoreUi.instance.AverageText();
     }
 
     private void NextRound() // 아직 3승을 못했으면 다음 라운드로 진행
@@ -80,5 +88,13 @@ public class ScoreUi : MonoBehaviour
         TimeManager.instance.TimeReset();
         GameManager.instance.TimeRestart();
         player.ReStart();
+        TimeManager.instance.averageReaction = 0;
+        TimeManager.instance.averageReaction1 = 0;
+    }
+    public void AverageText()
+    {
+        TimeManager.instance.averageReaction = TimeManager.instance.averageReaction / TimeManager.instance.averageReaction1;
+        aiAverage.SetText(TimeManager.instance.averageReaction.ToString("F1") + "ms"); // ToString("F1")은 소수 첫째자리까지
+        playerAverage.SetText(TimeManager.instance.averageReaction.ToString("F1") + "ms");
     }
 }

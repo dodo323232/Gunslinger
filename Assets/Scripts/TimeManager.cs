@@ -10,6 +10,8 @@ public class TimeManager : MonoBehaviour
     
     public float recordTime;
     public float reaction;
+    public float averageReaction = 0f;
+    public int averageReaction1 = 0;
     public float randomReaction;
     void Awake()
     {
@@ -29,6 +31,7 @@ public class TimeManager : MonoBehaviour
         stopwatch.Stop();
         double rawMs = stopwatch.Elapsed.TotalMilliseconds; 
         reaction = (float)(System.Math.Round(rawMs,1)); // 더블을 소수 한자리
+        averageReaction += reaction;
     }
 
     public void TimeRecord()
@@ -42,6 +45,7 @@ public class TimeManager : MonoBehaviour
         {
             UnityEngine.Debug.Log("Player 승");
             ScoreUi.instance.PlayerScoreUp();
+            averageReaction1 += 1;
             GameManager.instance.readyStart = false;
         }
         else if (reaction > randomReaction)
@@ -49,12 +53,14 @@ public class TimeManager : MonoBehaviour
             UnityEngine.Debug.Log("Ai 승");
             GameManager.instance.Shoot();
             ScoreUi.instance.AiScoreUp();
+            averageReaction1 += 1;
             GameManager.instance.readyStart = false;
         }
 
         else if(randomReaction == reaction)
         {
             UnityEngine.Debug.Log("무승부");
+            averageReaction1 += 1;
             player.Stop();
             GameManager.instance.TimeRestart();
             player.ReStart();

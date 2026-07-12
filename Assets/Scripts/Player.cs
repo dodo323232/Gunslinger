@@ -36,9 +36,9 @@ public class Player : MonoBehaviour
                 if (!GameManager.instance.gameStart)
                 {
                     Mistake();
-                    GameManager.instance.ShootSound();
-                    GameManager.instance.Shoot();
-                    ScoreUi.instance.AiScoreUp();
+                    // GameManager.instance.ShootSound();
+                    // GameManager.instance.Shoot();
+                    // ScoreUi.instance.AiScoreUp();
                     break;
                 }
                 else if (aiWin)
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
                     Debug.Log("이미 패배, 반응속도만 기록 : "+TimeManager.instance.reaction);
                     ScoreUi.instance.AiScoreUp();
                     GameManager.instance.readyStart = false;
+                    TimeManager.instance.averageReaction1 += 1;
                     break;
                 }
                 else
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
 
     private void Mistake()
     {
+        ScoreUi.instance.PlayAgain();
         Debug.Log("실패");
     }
 
