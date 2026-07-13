@@ -6,6 +6,8 @@ public class ScoreUi : MonoBehaviour
     [SerializeField]
     private Player player;
     public static ScoreUi instance;
+    [SerializeField]
+    private GameObject Menu;
 
     [SerializeField]
     private GameObject playerWinPanel;
@@ -82,6 +84,7 @@ public class ScoreUi : MonoBehaviour
         GameManager.instance.TrackSound();
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
+        Menu.SetActive(false);
         playerScore = 0;
         aiScore = 0;
         player.Stop();
@@ -96,5 +99,12 @@ public class ScoreUi : MonoBehaviour
         TimeManager.instance.averageReaction = TimeManager.instance.averageReaction / TimeManager.instance.averageReaction1;
         aiAverage.SetText(TimeManager.instance.averageReaction.ToString("F1") + "ms"); // ToString("F1")은 소수 첫째자리까지
         playerAverage.SetText(TimeManager.instance.averageReaction.ToString("F1") + "ms");
+    }
+    public void MenuButton()
+    {
+        GameManager.instance.TrackSound();
+        playerWinPanel.SetActive(false);
+        aiWinPanel.SetActive(false);
+        Menu.SetActive(true);
     }
 }
