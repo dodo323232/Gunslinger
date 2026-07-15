@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AiPlayer aiPlayer;
     [SerializeField]
-    private Animator frame1Animator;
+    private Animator[] frame1Animator;
     [SerializeField]
     public GameObject DifPanel;
     public static GameManager instance;
@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour
     }
     
     public void Shoot()
-    {
-        frame1Animator.SetTrigger("ShootTrigger");
+    {                                       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 여기
+        frame1Animator[(int)d].SetTrigger("ShootTrigger");
     }
 
     public void TimeRestart()

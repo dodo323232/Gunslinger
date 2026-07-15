@@ -9,12 +9,6 @@ public class DifficultyButtonGroup : MonoBehaviour
     private GameObject normalEnemy;
     [SerializeField]
     private GameObject hardEnemy;
-    [SerializeField]
-    private Vector3 easyPos;
-    [SerializeField]
-    private Vector3 normalPos;
-    [SerializeField]
-    private Vector3 hardPos;
 
     void Start()
     {
@@ -31,6 +25,18 @@ public class DifficultyButtonGroup : MonoBehaviour
     {
         if(currentSelected != null)
         {
+            switch (GameManager.instance.d)
+            {
+                case GameManager.Difficulty.Easy:
+                    easyEnemy.SetActive(false);
+                    break;
+                case GameManager.Difficulty.Normal:
+                    normalEnemy.SetActive(false);
+                    break;
+                case GameManager.Difficulty.Hard:
+                    hardEnemy.SetActive(false);
+                    break;
+            }
             currentSelected.SetSelected(false);
         }
         currentSelected = button;
@@ -41,13 +47,13 @@ public class DifficultyButtonGroup : MonoBehaviour
         switch (GameManager.instance.d)
         {
             case GameManager.Difficulty.Easy:
-                Instantiate(easyEnemy,easyPos,Quaternion.identity);
+                easyEnemy.SetActive(true);
                 break;
             case GameManager.Difficulty.Normal:
-                Instantiate(normalEnemy,normalPos,Quaternion.identity);
+                normalEnemy.SetActive(true);
                 break;
             case GameManager.Difficulty.Hard:
-                Instantiate(hardEnemy,hardPos,Quaternion.identity);
+                hardEnemy.SetActive(true);
                 break;
         }
         
