@@ -18,5 +18,4 @@ public class AiPlayer : MonoBehaviour
         (float)System.Math.Round(Random.Range(GameManager.instance.minReaction[(int)GameManager.instance.d],
         GameManager.instance.maxReaction[(int)GameManager.instance.d]),1); // gamemager에 enum 이용해서 난이도 조절 만들거임
     }
-    
 }

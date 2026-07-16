@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AiPlayer aiPlayer;
     [SerializeField]
-    private Animator[] frame1Animator;
+    public Animator[] frame1Animator;
     [SerializeField]
     public GameObject DifPanel;
     public static GameManager instance;
@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartTimer()    // 게임 시작시 타이머 랜덤
     {
-        yield return new WaitForSeconds(1.5f);
+        frame1Animator[(int)d].SetTrigger("IdleTrigger");
+        yield return new WaitForSeconds(1.5f);            
         gameStart = false;
         readyStart = false;
         text.SetText("READY");
@@ -69,9 +70,10 @@ public class GameManager : MonoBehaviour
     }
     
     public void Shoot()
-    {                                       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 여기
-        frame1Animator[(int)d].SetTrigger("ShootTrigger");
-    }
+    {                    
+        frame1Animator[(int)d].ResetTrigger("IdleTrigger"); // idletrigger을 너무 빨리 실행 했으므로 true가 되었다 그래서 shoottrigger을 했지만
+        frame1Animator[(int)d].SetTrigger("ShootTrigger");  // exittime이 끝나고 바로 idle로 돌아가게 되는 버그 발생.
+    }                                                       // 그래서 resettrigger을 함으로서 다시 false로 만듦
 
     public void TimeRestart()
     {
