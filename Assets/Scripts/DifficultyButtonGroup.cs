@@ -9,6 +9,12 @@ public class DifficultyButtonGroup : MonoBehaviour
     private GameObject normalEnemy;
     [SerializeField]
     private GameObject hardEnemy;
+    [SerializeField]
+    private GameObject hardBackground;
+    [SerializeField]
+    private GameObject easyBackground;
+    [SerializeField]
+    private GameObject normalBackground;
 
     void Start()
     {
@@ -28,15 +34,12 @@ public class DifficultyButtonGroup : MonoBehaviour
             switch (GameManager.instance.d)
             {
                 case GameManager.Difficulty.Easy:
-                    GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger"); 
                     easyEnemy.SetActive(false);
                     break;
                 case GameManager.Difficulty.Normal:
-                    GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger");
                     normalEnemy.SetActive(false);
                     break;
                 case GameManager.Difficulty.Hard:
-                    GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger"); 
                     hardEnemy.SetActive(false);
                     break;
             }
@@ -51,12 +54,24 @@ public class DifficultyButtonGroup : MonoBehaviour
         {
             case GameManager.Difficulty.Easy:
                 easyEnemy.SetActive(true);
+
+                normalBackground.SetActive(false);
+                hardBackground.SetActive(false);
+                easyBackground.SetActive(true);
                 break;
             case GameManager.Difficulty.Normal:
                 normalEnemy.SetActive(true);
+
+                easyBackground.SetActive(false);
+                hardBackground.SetActive(false);
+                normalBackground.SetActive(true);
                 break;
             case GameManager.Difficulty.Hard:
                 hardEnemy.SetActive(true);
+                
+                easyBackground.SetActive(false);
+                normalBackground.SetActive(false); // 미친 코딩 ㅎ
+                hardBackground.SetActive(true);
                 break;
         }
         

@@ -18,7 +18,7 @@ public class ScoreUi : MonoBehaviour
     private TextMeshProUGUI aiAverage;
     [SerializeField]
     private TextMeshProUGUI playerAverage;
-    private const int WinsNeeded = 3;
+    private const int WinsNeeded = 1;
     public int playerScore = 0;
     public int aiScore = 0;
 
@@ -103,6 +103,7 @@ public class ScoreUi : MonoBehaviour
     public void MenuButton()
     {
         GameManager.instance.TrackSound();
+        GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger"); 
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
         Menu.SetActive(true);
