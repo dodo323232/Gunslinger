@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 85e41ea22ed84e048935cccc99b59825
+guid: 4d702fdc72f633e4983bde43151ee200
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8157403806559461926
-    second: frame_2_0
+      213: -6681210278213814983
+    second: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_0
+  - first:
+      213: 3226184011160173566
+    second: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_1
+  - first:
+      213: -7404894728571822939
+    second: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_2
+  - first:
+      213: -2572759755714433036
+    second: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_3
+  - first:
+      213: 4400045373289329853
+    second: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +138,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: frame_2_0
+      name: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 124
-        width: 381
-        height: 503
+        x: 128
+        y: 0
+        width: 226
+        height: 724
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: add9a9c25741bce80800000000000000
-      internalID: -8157403806559461926
+      spriteID: 935706986a29743a0800000000000000
+      internalID: -6681210278213814983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_1
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 0
+        width: 245
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efb3f3dd345b5cc20800000000000000
+      internalID: 3226184011160173566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_2
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 0
+        width: 328
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ac50582a778c3990800000000000000
+      internalID: -7404894728571822939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_3
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 0
+        width: 377
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ff683c12a8bb4cd0800000000000000
+      internalID: -2572759755714433036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_4
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 0
+        width: 411
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db4f28e54f9101d30800000000000000
+      internalID: 4400045373289329853
       vertices: []
       indices: 
       edges: []
@@ -151,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7b2fb8c56c4628d4ab401771fbb18707
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +261,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      frame_2_0: -8157403806559461926
+      5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_0: -6681210278213814983
+      5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_1: 3226184011160173566
+      5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_2: -7404894728571822939
+      5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_3: -2572759755714433036
+      5a5a438b-1351-489c-a79e-150bd192697c-Photoroom_4: 4400045373289329853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

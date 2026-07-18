@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         // StartCoroutine(StartTimer());
         audioSource = GetComponent<AudioSource>();
         dif = FindAnyObjectByType<DifficultyButtonGroup>(FindObjectsInactive.Include);
+        Audio.instance.MenuAudio();
     }
 
 
@@ -59,11 +60,13 @@ public class GameManager : MonoBehaviour
         gameStart = false;
         readyStart = false;
         text.SetText("READY");
+        // Audio.instance.Heartbeat();
         readyStart = true;
         randomTime = Random.Range(2.5f,5f);
         Instantiate(ballPrefab,ballLocate,Quaternion.identity);
         yield return new WaitForSeconds(randomTime);
         text.SetText("shoot!");
+        // Audio.instance.Heartbeat();
         TimeManager.instance.TimeStart();
         aiPlayer.DecideReactionTime();
         gameStart = true;
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
         // startTimerCoroutine = StartCoroutine(StartTimer());
         dif.selectAiPlayer();
         ScoreUi.instance.PlayAgain();
+        Audio.instance.MenuAudio();
     }
     public void DifButton()
     {

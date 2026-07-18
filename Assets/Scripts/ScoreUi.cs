@@ -104,6 +104,7 @@ public class ScoreUi : MonoBehaviour
     {
         GameManager.instance.TrackSound();
         GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger"); 
+        Audio.instance.MenuAudio();
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
         Menu.SetActive(true);
