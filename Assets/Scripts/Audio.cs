@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class Audio : MonoBehaviour
 {
-    [SerializeField]private AudioSource heartbeatSource;
+    [SerializeField] private AudioSource heartbeatSource;
     [SerializeField] AudioClip heartbeatSound;
-    [SerializeField]private AudioSource menuSource;
+    [SerializeField] private AudioSource menuSource;
     [SerializeField] AudioClip menuSound;
+    [SerializeField] private AudioSource gameMusicSource;
+    [SerializeField] AudioClip gameMusic;
     private AudioSource audioSource;
 
     public static Audio instance;
     private bool HeartbeatOn = false;
     private bool menuOn = true;
+    private bool gameStart = true;
 
     void Awake()
     {
@@ -49,6 +52,23 @@ public class Audio : MonoBehaviour
         {
             menuSource.Stop();
             menuOn = true;
+        }
+    }
+    public void GameAudio()
+    {
+        if (gameStart)
+        {
+            Debug.Log("음악 시작!");
+            gameMusicSource.clip = gameMusic;
+            gameMusicSource.loop = true;
+            gameMusicSource.Play();
+            gameStart = false;
+        }
+        else
+        {
+            Debug.Log("음악 !");
+            gameMusicSource.Stop();
+            gameStart = true;
         }
     }
 }

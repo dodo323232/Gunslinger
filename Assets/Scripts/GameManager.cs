@@ -34,6 +34,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject menuPanel;
     private Coroutine startTimerCoroutine;
+    [SerializeField]
+    public GameObject scorePanel;
+    [SerializeField]
+    public GameObject mistakePanel;
+    [SerializeField]
+    public GameObject readyImg;
+    [SerializeField]
+    public GameObject shootImg;
     Vector3 ballLocate = new Vector3(10.62f,-3.29f,0f);
     public void Awake()
     {
@@ -59,13 +67,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);            
         gameStart = false;
         readyStart = false;
-        text.SetText("READY");
+        readyImg.SetActive(true);
         // Audio.instance.Heartbeat();
         readyStart = true;
-        randomTime = Random.Range(2.5f,5f);
+        randomTime = Random.Range(3.5f,8f);
         Instantiate(ballPrefab,ballLocate,Quaternion.identity);
         yield return new WaitForSeconds(randomTime);
-        text.SetText("shoot!");
+        readyImg.SetActive(false);
+        shootImg.SetActive(true);
         // Audio.instance.Heartbeat();
         TimeManager.instance.TimeStart();
         aiPlayer.DecideReactionTime();
@@ -80,14 +89,18 @@ public class GameManager : MonoBehaviour
 
     public void TimeRestart()
     {
+        StopTimer();
+        gameStart = false;
+        readyStart = false;
+        startTimerCoroutine = StartCoroutine(StartTimer());
+    }
+
+    public void StopTimer()
+    {
         if (startTimerCoroutine != null)
         {
             StopCoroutine(startTimerCoroutine);
         }
-        gameStart = false; 
-        readyStart = false;
-        text.SetText("");
-        startTimerCoroutine = StartCoroutine(StartTimer());
     }
 
     public void ShootSound()
@@ -109,6 +122,11 @@ public class GameManager : MonoBehaviour
         dif.selectAiPlayer();
         ScoreUi.instance.PlayAgain();
         Audio.instance.MenuAudio();
+        Invoke("Wait",0.5f); // 0.5초뒤 게임 음악 재생
+    }
+    private void Wait()
+    {
+        Audio.instance.GameAudio();
     }
     public void DifButton()
     {

@@ -66,7 +66,17 @@ public class Player : MonoBehaviour
 
     private void Mistake()
     {
-        ScoreUi.instance.PlayAgain();
+        GameManager.instance.StopTimer();
+        // ScoreUi.instance.PlayAgain();
+        ScoreUi.instance.playerScore = 0;
+        ScoreUi.instance.aiScore = 0;
+        ScoreUi.instance.playerScoText.SetText(ScoreUi.instance.playerScore.ToString());
+        ScoreUi.instance.aiScoText.SetText(ScoreUi.instance.aiScore.ToString());
+        GameManager.instance.mistakePanel.SetActive(true);
+        GameManager.instance.shootImg.SetActive(false);
+        GameManager.instance.readyImg.SetActive(false);
+        // Audio.instance.GameAudio();
+        GameManager.instance.GameOverSound();
         Debug.Log("실패");
     }
 
