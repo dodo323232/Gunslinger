@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Diagnostics;
 using Unity.Mathematics;
+using System;
+using TMPro;
 public class TimeManager : MonoBehaviour
 {
     Stopwatch stopwatch = new Stopwatch();
@@ -13,6 +15,8 @@ public class TimeManager : MonoBehaviour
     public float averageReaction = 0f;
     public int averageReaction1 = 0;
     public float randomReaction;
+    [SerializeField]
+    public TextMeshProUGUI reactionText;
     void Awake()
     {
         if( instance == null)
@@ -24,6 +28,7 @@ public class TimeManager : MonoBehaviour
     public void TimeStart()
     {
         stopwatch.Start();
+        reactionText.SetText("");
     }
 
     public void TimeStop()
@@ -32,6 +37,7 @@ public class TimeManager : MonoBehaviour
         double rawMs = stopwatch.Elapsed.TotalMilliseconds; 
         reaction = (float)(System.Math.Round(rawMs,1)); // 더블을 소수 한자리
         averageReaction += reaction;
+        reactionText.SetText(reaction.ToString());
     }
 
     public void TimeRecord()

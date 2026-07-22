@@ -41,6 +41,7 @@ public class ScoreUi : MonoBehaviour
         if (playerScore >= WinsNeeded)
         {
             Invoke("PlayerWin", 2.5f);
+            GameManager.instance.AiDie(true);
             GameManager.instance.shootImg.SetActive(false);
             GameManager.instance.readyImg.SetActive(false);
         }
@@ -76,7 +77,7 @@ public class ScoreUi : MonoBehaviour
         playerScoText.SetText(playerScore.ToString());
         aiScoText.SetText(aiScore.ToString());
         GameManager.instance.scorePanel.SetActive(false);
-        
+        GameManager.instance.reactionTextPanel.SetActive(false);
     }
 
     private void AiWin()
@@ -89,6 +90,7 @@ public class ScoreUi : MonoBehaviour
         playerScoText.SetText(playerScore.ToString());
         aiScoText.SetText(aiScore.ToString());
         GameManager.instance.scorePanel.SetActive(false);
+        GameManager.instance.reactionTextPanel.SetActive(false);
     }
 
     private void NextRound() // 아직 3승을 못했으면 다음 라운드로 진행
@@ -99,6 +101,7 @@ public class ScoreUi : MonoBehaviour
         TimeManager.instance.TimeReset();
         GameManager.instance.TimeRestart();
         player.ReStart();
+        GameManager.instance.PlayerDie(false);
     }
 
     public void PlayAgain()
@@ -117,6 +120,9 @@ public class ScoreUi : MonoBehaviour
         TimeManager.instance.averageReaction1 = 0;
         GameManager.instance.scorePanel.SetActive(true);
         GameManager.instance.mistakePanel.SetActive(false);   
+        TimeManager.instance.reactionText.SetText("");
+        GameManager.instance.reactionTextPanel.SetActive(true);
+        GameManager.instance.PlayerDie(false);
     }
     public void AverageText()
     {
@@ -134,6 +140,7 @@ public class ScoreUi : MonoBehaviour
         aiWinPanel.SetActive(false);
         Menu.SetActive(true);
         GameManager.instance.mistakePanel.SetActive(false);
+        GameManager.instance.scorePanel.SetActive(false);
     }
     public void MistakePanel()
     {

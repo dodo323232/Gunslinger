@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public Animator[] frame1Animator;
     [SerializeField]
+    public Animator playerAnimator;
+    [SerializeField]
     public GameObject DifPanel;
     public static GameManager instance;
-
     public bool gameStart = false;
     public bool readyStart = false;
     public float randomTime;
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour
     public GameObject readyImg;
     [SerializeField]
     public GameObject shootImg;
+    [SerializeField]
+    public GameObject reactionTextPanel;
     Vector3 ballLocate = new Vector3(10.62f,-3.29f,0f);
     public void Awake()
     {
@@ -87,6 +90,58 @@ public class GameManager : MonoBehaviour
         frame1Animator[(int)d].SetTrigger("ShootTrigger");  // exittime이 끝나고 바로 idle로 돌아가게 되는 버그 발생.
     }                                                       // 그래서 resettrigger을 함으로서 다시 false로 만듦
 
+    public void AiDie(bool die)
+    {
+        if (die)
+        {
+            frame1Animator[(int)d].ResetTrigger("IdleTrigger");
+            frame1Animator[(int)d].SetTrigger("DieTrigger");
+            StartCoroutine(WinImpact());
+        }
+        else
+        {
+            frame1Animator[(int)d].ResetTrigger("DieTrigger");
+            frame1Animator[(int)d].SetTrigger("IdleTrigger");
+        }
+    }
+
+    private IEnumerator WinImpact() // 승리 임팩트 : 히트스톱(슬로우모션) + 카메라 흔들림
+    {
+        Time.timeScale = 0.05f; // 완전히 0으로 멈추면 Invoke("PlayerWin", ...) 타이머도 같이 멈추므로 살짝만 느리게
+        yield return new WaitForSecondsRealtime(0.08f);
+        Time.timeScale = 1f;
+
+        Camera cam = Camera.main;
+        if (cam == null) yield break;
+
+        Vector3 originalPos = cam.transform.localPosition; // 원래 카메라 위치 기억
+        float shakeDuration = 0.25f;
+        float magnitude = 0.15f;
+        float elapsed = 0f;
+        while (elapsed < shakeDuration)
+        {
+            float damper = 1f - (elapsed / shakeDuration); // 시간이 지날수록 흔들림이 잦아듦
+            Vector2 offset = Random.insideUnitCircle * magnitude * damper; // Random.insideUnitCircle 원 안에 아무 점이나 찍는거
+            cam.transform.localPosition = originalPos + new Vector3(offset.x, offset.y, 0f);
+            elapsed += Time.unscaledDeltaTime; // 매 프레임마다 실제로 걸린 시간을 더했다
+            yield return null;
+        }
+        cam.transform.localPosition = originalPos; // 원래 카메라 위치로 되돌리기
+    }
+    public void PlayerDie(bool die)
+    {
+        if (die)
+        {
+            playerAnimator.ResetTrigger("IdleTrigger");
+            playerAnimator.SetTrigger("DieTrigger");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("DieTrigger");
+            playerAnimator.SetTrigger("IdleTrigger");
+        }
+    }
+
     public void TimeRestart()
     {
         StopTimer();
@@ -122,6 +177,7 @@ public class GameManager : MonoBehaviour
         dif.selectAiPlayer();
         ScoreUi.instance.PlayAgain();
         Audio.instance.MenuAudio();
+        reactionTextPanel.SetActive(true);
         Invoke("Wait",0.5f); // 0.5초뒤 게임 음악 재생
     }
     private void Wait()
