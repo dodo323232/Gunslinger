@@ -25,6 +25,11 @@ public class ScoreUi : MonoBehaviour
     public TextMeshProUGUI playerScoText;
     [SerializeField]
     public TextMeshProUGUI aiScoText;
+    [SerializeField]
+    private GameObject highScorePanel;
+    [SerializeField]
+    private TextMeshProUGUI highReactionText;
+    private float bestReaction = -1f;
 
     void Awake()
     {
@@ -70,7 +75,8 @@ public class ScoreUi : MonoBehaviour
     private void PlayerWin()
     {
         playerWinPanel.SetActive(true);
-        GameManager.instance.GameOverSound();
+        Audio.instance.StopGameMusic();
+        Audio1.instance.GameWinSound();
         ScoreUi.instance.AverageText();
         playerScore = 0;
         aiScore = 0;
@@ -83,6 +89,7 @@ public class ScoreUi : MonoBehaviour
     private void AiWin()
     {
         aiWinPanel.SetActive(true);
+        Audio.instance.StopGameMusic();
         GameManager.instance.GameOverSound();
         ScoreUi.instance.AverageText();
         playerScore = 0;
@@ -107,6 +114,7 @@ public class ScoreUi : MonoBehaviour
     public void PlayAgain()
     {
         GameManager.instance.TrackSound();
+        Audio.instance.PlayGameMusic();
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
         Menu.SetActive(false);
@@ -133,8 +141,8 @@ public class ScoreUi : MonoBehaviour
     public void MenuButton()
     {
         GameManager.instance.TrackSound();
-        GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger"); 
-        Audio.instance.GameAudio();
+        GameManager.instance.frame1Animator[(int)GameManager.instance.d].SetTrigger("IdleTrigger");
+        Audio.instance.StopGameMusic();
         Audio.instance.MenuAudio();
         playerWinPanel.SetActive(false);
         aiWinPanel.SetActive(false);
@@ -144,6 +152,26 @@ public class ScoreUi : MonoBehaviour
     }
     public void MistakePanel()
     {
-        
+
+    }
+    public void HighScoreButton()
+    {
+        GameManager.instance.TrackSound();
+        highScorePanel.SetActive(true);
+        UpdateHighReactionText();
+    }
+    public void CloseHighScore()
+    {
+        GameManager.instance.TrackSound();
+        highScorePanel.SetActive(false);
+    }
+    private void UpdateHighReactionText() // 이번 판 평균 반응속도와 지금까지의 최고기록 중 더 빠른(작은) 값을 기록으로 채택
+    {
+        float current = TimeManager.instance.averageReaction;
+        if (current > 0 && (bestReaction < 0 || current < bestReaction))
+        {
+            bestReaction = current;
+        }
+        highReactionText.SetText(bestReaction < 0 ? "--" : bestReaction.ToString("F1") + "ms");
     }
 }

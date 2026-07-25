@@ -13,7 +13,6 @@ public class Audio : MonoBehaviour
     public static Audio instance;
     private bool HeartbeatOn = false;
     private bool menuOn = true;
-    private bool gameStart = true;
 
     void Awake()
     {
@@ -54,21 +53,15 @@ public class Audio : MonoBehaviour
             menuOn = true;
         }
     }
-    public void GameAudio()
+    public void PlayGameMusic()
     {
-        if (gameStart)
-        {
-            Debug.Log("음악 시작!");
-            gameMusicSource.clip = gameMusic;
-            gameMusicSource.loop = true;
-            gameMusicSource.Play();
-            gameStart = false;
-        }
-        else
-        {
-            Debug.Log("음악 !");
-            gameMusicSource.Stop();
-            gameStart = true;
-        }
+        gameMusicSource.clip = gameMusic;
+        gameMusicSource.loop = true;
+        gameMusicSource.Play();
+    }
+
+    public void StopGameMusic()
+    {
+        gameMusicSource.Stop();
     }
 }

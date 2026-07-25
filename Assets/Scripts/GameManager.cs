@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     AudioClip gameOverSound;
     [SerializeField]
+    AudioClip gameWinSound;
+    [SerializeField]
     AudioClip trackSound;
     [SerializeField]
     private GameObject ballPrefab;
@@ -166,6 +168,10 @@ public class GameManager : MonoBehaviour
     {
         audioSource.PlayOneShot(gameOverSound);
     }
+    public void GameWinSound()
+    {
+        audioSource.PlayOneShot(gameWinSound);
+    }
     public void TrackSound()
     {
         audioSource.PlayOneShot(trackSound);
@@ -182,7 +188,7 @@ public class GameManager : MonoBehaviour
     }
     private void Wait()
     {
-        Audio.instance.GameAudio();
+        Audio.instance.PlayGameMusic();
     }
     public void DifButton()
     {
