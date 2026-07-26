@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
+using CrazyGames;
 public class ScoreUi : MonoBehaviour
 {
     [SerializeField]
@@ -18,7 +19,7 @@ public class ScoreUi : MonoBehaviour
     private TextMeshProUGUI aiAverage;
     [SerializeField]
     private TextMeshProUGUI playerAverage;
-    private const int WinsNeeded = 1;
+    private const int WinsNeeded = 3;
     public int playerScore = 0;
     public int aiScore = 0;
     [SerializeField]
@@ -149,11 +150,12 @@ public class ScoreUi : MonoBehaviour
         Menu.SetActive(true);
         GameManager.instance.mistakePanel.SetActive(false);
         GameManager.instance.scorePanel.SetActive(false);
+        if (CrazySDK.IsInitialized)
+        {
+            CrazySDK.Game.GameplayStop();
+        }
     }
-    public void MistakePanel()
-    {
 
-    }
     public void HighScoreButton()
     {
         GameManager.instance.TrackSound();

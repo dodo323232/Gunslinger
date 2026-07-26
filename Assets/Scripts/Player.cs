@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
                 aiWin = true;
                 GameManager.instance.ShootSound();
                 GameManager.instance.Shoot();
+                GameManager.instance.WinImpactEffect();
                 GameManager.instance.PlayerDie(true);
                 Debug.Log("너무 오소이~ ai 승 : "+TimeManager.instance.randomReaction);
             }
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     Success();
+                    GameManager.instance.WinImpactEffect();
                     GameManager.instance.ShootSound();
                     Debug.Log(TimeManager.instance.randomReaction);
                     TimeManager.instance.WinLoss();

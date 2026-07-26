@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using CrazyGames;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -31,8 +32,6 @@ public class GameManager : MonoBehaviour
     AudioClip gameWinSound;
     [SerializeField]
     AudioClip trackSound;
-    [SerializeField]
-    private GameObject ballPrefab;
     private AudioSource audioSource;
     [SerializeField]
     private GameObject menuPanel;
@@ -47,7 +46,6 @@ public class GameManager : MonoBehaviour
     public GameObject shootImg;
     [SerializeField]
     public GameObject reactionTextPanel;
-    Vector3 ballLocate = new Vector3(10.62f,-3.29f,0f);
     public void Awake()
     {
         if (instance == null)
@@ -55,6 +53,10 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         d = Difficulty.Easy;
+        if (CrazySDK.IsAvailable)
+        {
+            CrazySDK.Init(() => { });
+        }
     }
 
     void Start()
@@ -76,7 +78,6 @@ public class GameManager : MonoBehaviour
         // Audio.instance.Heartbeat();
         readyStart = true;
         randomTime = Random.Range(3.5f,8f);
-        Instantiate(ballPrefab,ballLocate,Quaternion.identity);
         yield return new WaitForSeconds(randomTime);
         readyImg.SetActive(false);
         shootImg.SetActive(true);
@@ -87,10 +88,15 @@ public class GameManager : MonoBehaviour
     }
     
     public void Shoot()
-    {                    
+    {
         frame1Animator[(int)d].ResetTrigger("IdleTrigger"); // idletrigger을 너무 빨리 실행 했으므로 true가 되었다 그래서 shoottrigger을 했지만
         frame1Animator[(int)d].SetTrigger("ShootTrigger");  // exittime이 끝나고 바로 idle로 돌아가게 되는 버그 발생.
     }                                                       // 그래서 resettrigger을 함으로서 다시 false로 만듦
+
+    public void WinImpactEffect()
+    {
+        StartCoroutine(WinImpact());
+    }
 
     public void AiDie(bool die)
     {
@@ -184,6 +190,10 @@ public class GameManager : MonoBehaviour
         ScoreUi.instance.PlayAgain();
         Audio.instance.MenuAudio();
         reactionTextPanel.SetActive(true);
+        if (CrazySDK.IsInitialized)
+        {
+            CrazySDK.Game.GameplayStart();
+        }
         Invoke("Wait",0.5f); // 0.5초뒤 게임 음악 재생
     }
     private void Wait()
